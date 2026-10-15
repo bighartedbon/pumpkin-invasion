@@ -82,6 +82,7 @@
   const menuLayer = document.getElementById('menuLayer');
   const gameContainer = document.getElementById('gameContainer');
   const touchControls = document.getElementById('touchControls');
+  const touchContinue = document.getElementById('touchContinue');
   const levelSelect = document.getElementById('levelSelect');
   const rankingList = document.getElementById('rankingList');
   const menuStatus = document.getElementById('menuStatus');
@@ -310,8 +311,18 @@
   const keys = {};
   function syncTouchControls() {
     const touchLayout = window.matchMedia('(max-width: 760px), (pointer: coarse)').matches;
-    touchControls.hidden = !touchLayout || !['levelIntro', 'playing'].includes(state);
+    const canContinue = ['levelClear', 'gameOver', 'victory'].includes(state);
+    touchControls.hidden = !touchLayout || (!canContinue && !['levelIntro', 'playing'].includes(state));
+    touchControls.dataset.mode = canContinue ? 'continue' : 'play';
+    touchContinue.hidden = !canContinue;
+    touchContinue.textContent = state === 'levelClear' ? 'NEXT LEVEL' : state === 'victory' ? 'PLAY AGAIN' : 'BACK TO MENU';
+    touchContinue.setAttribute('aria-label', state === 'levelClear' ? 'Continue to the next level' : state === 'victory' ? 'Play again' : 'Return to the main menu');
   }
+
+  touchContinue.addEventListener('click', () => {
+    ensureAudio();
+    handleEnter();
+  });
 
   touchControls.querySelectorAll('[data-game-key]').forEach((button) => {
     const key = button.dataset.gameKey;
