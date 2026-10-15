@@ -1,0 +1,80 @@
+index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pumpkin Invasion - Halloween Alien Shooter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="game-container" id="gameContainer">
+        <canvas id="gameCanvas" width="800" height="600" aria-label="Pumpkin Invasion arcade game"></canvas>
+        <section class="menu-overlay" id="menuLayer" aria-label="Main menu">
+            <div class="menu-panel">
+                <header class="menu-header">
+                    <p class="eyebrow">HALLOWEEN ARCADE // FLIGHT 001</p>
+                    <h1>PUMPKIN <span>INVASION</span></h1>
+                    <p class="menu-subtitle">THE HARVEST DOESN'T WAIT</p>
+                </header>
+
+                <div class="menu-layout">
+                    <nav class="menu-nav" aria-label="Game menu">
+                        <button class="menu-nav-button selected" type="button" data-view="campaign">Campaign</button>
+                        <button class="menu-nav-button" type="button" data-view="rankings">Arcade rankings</button>
+                        <button class="menu-nav-button" type="button" data-view="manual">How to play</button>
+                        <button class="menu-nav-button" type="button" data-view="hangar">Ship paint</button>
+                    </nav>
+
+                    <div class="menu-content">
+                        <section class="menu-view active" id="view-campaign" aria-labelledby="campaignTitle">
+                            <p class="view-kicker">FOUR ACTS // TWENTY LEVELS</p>
+                            <h2 id="campaignTitle">Choose your sortie</h2>
+                            <label class="field-label" for="levelSelect">Unlocked starting level</label>
+                            <select id="levelSelect" aria-label="Choose an unlocked starting level"></select>
+                            <button class="launch-button" id="launchButton" type="button">Launch campaign <span aria-hidden="true">↗</span></button>
+                            <p class="small-note" id="unlockNote">Clear a level to unlock the next sortie.</p>
+                        </section>
+
+                        <section class="menu-view" id="view-rankings" aria-labelledby="rankingsTitle" hidden>
+                            <p class="view-kicker">LOCAL FLIGHT RECORDS</p>
+                            <h2 id="rankingsTitle">Arcade rankings</h2>
+                            <ol class="ranking-list" id="rankingList"></ol>
+                        </section>
+
+                        <section class="menu-view" id="view-manual" aria-labelledby="manualTitle" hidden>
+                            <p class="view-kicker">FIELD MANUAL</p>
+                            <h2 id="manualTitle">Stay airborne</h2>
+                            <dl class="control-list">
+                                <div><dt>Move</dt><dd>← → or A / D</dd></div>
+                                <div><dt>Fire</dt><dd>Hold Space</dd></div>
+                                <div><dt>Continue</dt><dd>Enter</dd></div>
+                            </dl>
+                            <p class="small-note">Keep moving. Boss weak points open and close; watch for warning lights before a laser strike.</p>
+                        </section>
+
+                        <section class="menu-view" id="view-hangar" aria-labelledby="hangarTitle" hidden>
+                            <p class="view-kicker">FLIGHT DECK // COSMETICS</p>
+                            <h2 id="hangarTitle">Choose ship paint</h2>
+                            <div class="paint-options" role="group" aria-label="Ship paint">
+                                <button class="paint-swatch selected" type="button" data-paint="comet" aria-label="Comet blue" title="Comet blue"><span class="swatch-comet"></span></button>
+                                <button class="paint-swatch" type="button" data-paint="pumpkin" aria-label="Pumpkin orange" title="Pumpkin orange"><span class="swatch-pumpkin"></span></button>
+                                <button class="paint-swatch" type="button" data-paint="specter" aria-label="Specter mint" title="Specter mint"><span class="swatch-specter"></span></button>
+                                <button class="paint-swatch" type="button" data-paint="bloodmoon" aria-label="Blood moon red" title="Blood moon red"><span class="swatch-bloodmoon"></span></button>
+                            </div>
+                            <p class="small-note" id="paintNote">Comet blue selected.</p>
+                        </section>
+                    </div>
+                </div>
+
+                <footer class="menu-footer">
+                    <span id="menuStatus" aria-live="polite">READY FOR LAUNCH</span>
+                    <button class="sound-toggle" id="soundToggle" type="button" aria-pressed="true"><span class="sound-icon" aria-hidden="true">♫</span><span id="soundLabel">SOUND ON</span></button>
+                </footer>
+            </div>
+        </section>
+    </main>
+
+    <script src="game.js"></script>
+</body>
+</html>
