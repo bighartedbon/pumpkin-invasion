@@ -52,7 +52,6 @@
   ];
 
   // ---------------------------------------------------------------
-  // 2. GAME STATE
   // ---------------------------------------------------------------
   let state = 'menu';           // 'menu' | 'levelIntro' | 'playing' | 'levelClear' | 'gameOver' | 'victory'
   let level = 1;
@@ -309,8 +308,8 @@
   // 3. INPUT
   // ---------------------------------------------------------------
   const keys = {};
-  const touchLayout = window.matchMedia('(max-width: 760px), (pointer: coarse)').matches;
   function syncTouchControls() {
+    const touchLayout = window.matchMedia('(max-width: 760px), (pointer: coarse)').matches;
     touchControls.hidden = !touchLayout || !['levelIntro', 'playing'].includes(state);
   }
 
@@ -351,6 +350,7 @@
     }
   });
   window.addEventListener('keyup', (e) => { keys[e.code] = false; });
+  window.addEventListener('resize', syncTouchControls);
 
   function handleEnter() {
     if (state === 'levelClear' && level < LEVELS.length) {
