@@ -8,10 +8,11 @@ index.html
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <main class="game-container" id="gameContainer">
-        <canvas id="gameCanvas" width="800" height="600" aria-label="Pumpkin Invasion arcade game"></canvas>
-        <section class="menu-overlay" id="menuLayer" aria-label="Main menu">
-            <div class="menu-panel">
+    <div class="game-shell" id="gameShell">
+        <main class="game-container" id="gameContainer">
+            <canvas id="gameCanvas" width="800" height="600" aria-label="Pumpkin Invasion arcade game"></canvas>
+            <section class="menu-overlay" id="menuLayer" aria-label="Main menu">
+                <div class="menu-panel">
                 <header class="menu-header">
                     <p class="eyebrow">HALLOWEEN ARCADE // FLIGHT 001</p>
                     <h1>PUMPKIN <span>INVASION</span></h1>
@@ -71,9 +72,15 @@ index.html
                     <span id="menuStatus" aria-live="polite">READY FOR LAUNCH</span>
                     <button class="sound-toggle" id="soundToggle" type="button" aria-pressed="true"><span class="sound-icon" aria-hidden="true">♫</span><span id="soundLabel">SOUND ON</span></button>
                 </footer>
-            </div>
-        </section>
-    </main>
+                </div>
+            </section>
+        </main>
+        <div class="touch-controls" id="touchControls" aria-label="Touch game controls" hidden>
+            <button class="touch-button move-button" type="button" data-game-key="ArrowLeft" aria-label="Move left"><span aria-hidden="true">←</span></button>
+            <button class="touch-button move-button" type="button" data-game-key="ArrowRight" aria-label="Move right"><span aria-hidden="true">→</span></button>
+            <button class="touch-button fire-button" type="button" data-game-key="Space" aria-label="Fire"><span aria-hidden="true">✦</span> FIRE</button>
+        </div>
+    </div>
 
     <script src="game.js"></script>
 </body>

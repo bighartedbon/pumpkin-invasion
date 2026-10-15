@@ -82,6 +82,7 @@
   const ACTS = ['THE HARVEST BEGINS', 'THE HAUNTING SKIES', 'THE NEBULA CRYPT', 'THE COSMIC ECLIPSE'];
   const menuLayer = document.getElementById('menuLayer');
   const gameContainer = document.getElementById('gameContainer');
+  const touchControls = document.getElementById('touchControls');
   const levelSelect = document.getElementById('levelSelect');
   const rankingList = document.getElementById('rankingList');
   const menuStatus = document.getElementById('menuStatus');
@@ -308,6 +309,30 @@
   // 3. INPUT
   // ---------------------------------------------------------------
   const keys = {};
+  const touchLayout = window.matchMedia('(max-width: 760px), (pointer: coarse)').matches;
+  function syncTouchControls() {
+    touchControls.hidden = !touchLayout || !['levelIntro', 'playing'].includes(state);
+  }
+
+  touchControls.querySelectorAll('[data-game-key]').forEach((button) => {
+    const key = button.dataset.gameKey;
+    const release = () => {
+      keys[key] = false;
+      button.classList.remove('pressed');
+    };
+    button.addEventListener('pointerdown', (event) => {
+      event.preventDefault();
+      ensureAudio();
+      keys[key] = true;
+      button.classList.add('pressed');
+      button.setPointerCapture(event.pointerId);
+    });
+    button.addEventListener('pointerup', release);
+    button.addEventListener('pointercancel', release);
+    button.addEventListener('lostpointercapture', release);
+    button.addEventListener('contextmenu', (event) => event.preventDefault());
+  });
+
   window.addEventListener('keydown', (e) => {
     if (state !== 'menu' && ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Space'].includes(e.code)) e.preventDefault();
     keys[e.code] = true;
@@ -370,6 +395,7 @@
     alienFireTimer = 1;
     levelIntroTimer = 1.8;
     state = 'levelIntro';
+    syncTouchControls();
     setAmbient(true);
   }
 
@@ -1165,6 +1191,7 @@
   // 10. MAIN RENDER + LOOP
   // ---------------------------------------------------------------
   function render() {
+    syncTouchControls();
     ctx.save();
     if (shakeTimer > 0) ctx.translate((Math.random() - 0.5) * shakePower, (Math.random() - 0.5) * shakePower);
     drawBackground();
